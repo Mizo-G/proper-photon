@@ -1,11 +1,20 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
-import Sidebar from '../../components/Sidebar.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Sidebar from '../components/Sidebar.astro';
+import { ViewTransitions } from 'astro:transitions';
 
-const docs = (await getCollection('docs'))
-const currentPath = Astro.url.pathname;
-const parts = currentPath.split('/')
-const lastPart = parts[parts.length - 1];
+export async function getStaticPaths() {
+	const docs = await getCollection('docs');
+	return docs.map((doc) => ({
+		params: { slug: doc.slug },
+		props: doc,
+	}));
+}
+type Props = CollectionEntry<'docs'>;
+
+const docs = Astro.props;
+const { Content } = await docs.render();
+
 ---
 
 <!doctype html>
@@ -21,8 +30,12 @@ const lastPart = parts[parts.length - 1];
 		<title>Docs</title>
 		<meta name="title" content=Docs />
 		<meta name="description" content="welcome to the docs!" />
+		<ViewTransitions />
 	</head>
 	<body class="bg-gray-900 text-white">
-		<Sidebar/>
+		<Sidebar active={docs.slug} />
+		<main class="p-4 sm:ml-[300px] h-screen">
+			<Content />
+		</main>
 	</body>
 </html>

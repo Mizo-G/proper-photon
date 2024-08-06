@@ -11,7 +11,7 @@ const { active } = Astro.props
 			{
 			docs.map((doc) => (
 			<li>
-				<a href={`/docs/${doc.slug}`}>
+				<a href={`/${doc.slug}`}>
 					<h4 class={ active == doc.slug ? "title active" : "title" }>{doc.data.title}</h4>
 				</a>
 			</li>
