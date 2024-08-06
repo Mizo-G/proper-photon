@@ -1,0 +1,28 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Sidebar from '../../components/Sidebar.astro';
+
+const docs = (await getCollection('docs'))
+const currentPath = Astro.url.pathname;
+const parts = currentPath.split('/')
+const lastPart = parts[parts.length - 1];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
+		<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+
+		<title>Docs</title>
+		<meta name="title" content=Docs />
+		<meta name="description" content="welcome to the docs!" />
+	</head>
+	<body class="bg-gray-900 text-white">
+		<Sidebar/>
+	</body>
+</html>
