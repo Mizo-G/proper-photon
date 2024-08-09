@@ -1,10 +1,8 @@
 
 /* Login User */
-CREATE Or Alter PROCEDURE [dbo].[LoginUser]
-(
+CREATE   PROCEDURE [dbo].[LoginUser]
     @Email VARCHAR(100),
     @Hash CHAR(64)
-)
 AS
 BEGIN
     SET NOCOUNT ON;
