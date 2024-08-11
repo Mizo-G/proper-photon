@@ -1,4 +1,76 @@
-/* Login User */
+---
+title: "[dbo].[LoginUser]"
+description: "Log in a user by verifying email and hash, and update login attempts and dates. Returns the logged in User or Null."
+dbstatus: "✔️ Passing"
+codestatus: "❌ Failing"
+returns: 
+  - "Id"
+  - "FirstName"
+  - "LastName"
+  - "Email"
+  - "PhoneNumber"
+  - "Country"
+  - "City"
+  - "IsActive"
+  - "IsBlocked"
+params: 
+  - "@Email VARCHAR(100)"
+  - "@Hash CHAR(64)"
+refs: 
+  - "User"
+  - "UserDetails"
+createdby: "dbadmin"
+---
+
+## Title
+**[dbo].[LoginUser]**
+
+---
+
+## Description
+Log in a user by verifying email and hash, and update login attempts and dates. Returns the logged in User or Null.
+
+---
+
+## Status
+- **Database Status**: <span style="color: green;">✔️ Passing</span>
+- **Code Status**: <span style="color: red;">❌ Failing</span>
+
+---
+
+## Params
+- **@Email**: `VARCHAR(100)`, Default: `null`
+- **@Hash**: `CHAR(64)`, Default: `null`
+
+---
+
+
+## Returns
+- Id
+- FirstName
+- LastName
+- Email
+- PhoneNumber
+- Country
+- City
+- IsActive
+- IsBlocked
+
+---
+
+
+## References
+- User
+- UserDetails
+
+---
+
+## Code
+
+<details>
+<summary>SQL</summary>
+
+~~~~sql
 CREATE   PROCEDURE [dbo].[LoginUser]
     @Email VARCHAR(100),
     @Hash CHAR(64)
@@ -9,28 +81,9 @@ BEGIN
     DECLARE @UserId INT;
     DECLARE @CurrentDateTime DATETIME2 = GETUTCDATE();
     
-    /* start docs
-    {
-        "description": "Log in a user by verifying email and hash, and update login attempts and dates. Returns the logged in User or Null.",
-        "params": [
-            { "Name": "@Email", "Type": "VARCHAR(100)", "Default": null },
-            { "Name": "@Hash", "Type": "CHAR(64)", "Default": null }
-        ],
-        "returns": [
-            "Id",
-            "FirstName",
-            "LastName",
-            "Email",
-            "PhoneNumber",
-            "Country",
-            "City",
-            "IsActive",
-            "IsBlocked"
-        ]
-    }
-    end docs */
+    
 
-    -- Check if the email and hash match
+    
     SELECT @UserId = u.Id
     FROM [dbo].[User] u
     INNER JOIN [dbo].[UserDetails] ud ON u.Id = ud.UserId
@@ -38,7 +91,7 @@ BEGIN
 
     IF @UserId IS NOT NULL
     BEGIN
-        -- Update the login success details
+        
         UPDATE [dbo].[UserDetails]
         SET LastLoginDate = @CurrentDateTime,
             LastLoginAttempt = @CurrentDateTime,
@@ -60,7 +113,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        -- Update the login failure details
+        
         UPDATE [dbo].[UserDetails]
         SET LastLoginAttempt = @CurrentDateTime,
             FailedLoginAttemptsCount = FailedLoginAttemptsCount + 1
@@ -69,4 +122,14 @@ BEGIN
                       WHERE u.Email = @Email);
     END
 END;
-GO
+GO 
+~~~~
+</details>
+
+<details>
+<summary>C#</summary>
+
+~~~~cs
+code coming soon...
+~~~~
+</details>

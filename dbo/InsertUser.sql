@@ -1,5 +1,5 @@
 /* Insert User */
-CREATE   PROCEDURE [dbo].[InsertUser]
+CREATE PROCEDURE [dbo].[InsertUser]
     @FirstName NVARCHAR(100),
     @LastName NVARCHAR(100),
     @Email VARCHAR(100),
@@ -14,8 +14,8 @@ BEGIN
 
     /* start docs
     {
-        "Description": "Insert a new user into the User table",
-        "Params": [
+        "description": "Insert a new user into the User table",
+        "params": [
             { "Name": "@FirstName", "Type": "NVARCHAR(100)", "Default": null },
             { "Name": "@LastName", "Type": "NVARCHAR(100)", "Default": null },
             { "Name": "@Email", "Type": "VARCHAR(100)", "Default": null },
@@ -25,7 +25,7 @@ BEGIN
             { "Name": "@IsMale", "Type": "Bit", "Default": "0" },
             { "Name": "@Hash", "Type": "CHAR(48)", "Default": null },
         ],
-        "Return": ["NewUserId"]
+        "return": ["NewUserId"]
     }
     end docs */
 
